@@ -1,0 +1,23 @@
+{
+  "name": "advanced-redux-course",
+  "version": "0.0.0",
+  "description": "studie redux",
+  "main": "index.js",
+  "author": "suxxus",
+  "license": "MIT",
+  "dependencies": {
+    "tape": "^4.7.0"
+  },
+  "scripts": {
+    "lint": "eslint --fix --color ./src/**/* || true",
+    "test": "NODE_PATH=src tape './src/test/index.js' | tap-colorize",
+    "start": "gulp"
+  },
+  "devDependencies": {
+    "eslint": "^4.3.0",
+    "eslint-config-eslint": "^4.0.0",
+    "gulp": "^3.9.1",
+    "gulp-run": "^1.7.1",
+    "tap-colorize": "^1.2.0"
+  }
+}
