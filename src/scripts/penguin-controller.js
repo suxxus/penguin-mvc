@@ -1,3 +1,5 @@
+const fetch = require('isomorphic-fetch');
+
 const dataUpdateListener = ({ updatePenguin }) => (topic, { data, index }) => {
   updatePenguin(data[index]);
 };
@@ -19,6 +21,14 @@ const clickEvtListener = ({ updateIndex }) => ({ target }) => {
   updateIndex(getIndex[target.id]);
 };
 
+const preloadImgs = ({ data = [] }, index = 1) => {
+  if (index === data.length) return;
+
+  fetch(data[index].imageUrl, { method: 'GET', mode: 'no-cors' })
+    .then(() => { preloadImgs({ data }, index + 1); })
+    .catch(error => console.error(error.message));
+};
+
 const initialize = (penguinModel = {}, penguinView = {}) => {
   penguinView.initPenguinView();
   penguinView.penguinControlls();
@@ -29,7 +39,8 @@ const initialize = (penguinModel = {}, penguinView = {}) => {
     penguinModel.subscribe,
     penguinModel.DATA_UPDATE);
 
-  penguinModel.fetchData();
+  penguinModel.fetchData()
+    .then(() => { preloadImgs(penguinModel.getModel()); });
 };
 
 module.exports = {

@@ -46,6 +46,7 @@ const fetchData = endpoint => () =>
 
 module.exports = {
   fetchData,
+  getModel,
   updateIndex,
   subscribe,
   DATA_UPDATE,
