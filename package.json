@@ -7,7 +7,6 @@
   "license": "MIT",
   "dependencies": {
     "es6-promise": "^4.1.1",
-    "handlebars": "^4.0.10",
     "isomorphic-fetch": "^2.2.1",
     "npm": "^5.3.0",
     "pubsub-js": "^1.5.7",
@@ -50,9 +49,10 @@
   },
   "engines": {
     "node": ">=5.10.0",
-    "npm": ">=3.8.3"
+    "npm": ">=3.8.3",
+    "yarn":">=0.21.3"
   },
   "keywords": [
-    "mvc, javascript"
+    "mvc, vainilla javascript, functional"
   ]
 }
