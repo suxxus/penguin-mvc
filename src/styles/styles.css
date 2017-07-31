@@ -1,0 +1,51 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+li,
+p {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.container {
+  width: 350px;
+  margin: 100px auto;
+  padding: 10px;
+  background-color: #f2f2f3;
+  border: 1px solid grey;
+}
+
+.container header{
+  color: blueviolet;
+}
+
+.penguin-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 450px;
+}
+
+.penguin-info{
+  padding: 15px 0;
+}
+
+.penguin-info span {
+  font-weight: 800;
+}
+
+.penguin-controlls{
+  display: flex;
+  justify-content: center;
+}
+.penguin-controlls :first-child {
+  margin-right: 15px;
+}

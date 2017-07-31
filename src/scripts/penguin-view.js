@@ -10,7 +10,7 @@ const emptyElement = ($elm) => {
 
 const penguinTitle = ({ name }) => {
   const $header = $qs('#penguinView header');
-  const $h3 = window.document.createElement('h3');
+  const $h3 = window.document.createElement('h2');
   $h3.appendChild(window.document.createTextNode(name));
   emptyElement($header);
   $header.appendChild($h3);
@@ -18,32 +18,36 @@ const penguinTitle = ({ name }) => {
 
 const penguinImage = ({ imageUrl, name }) => {
   const $penguinImage = $qs('#penguinView .penguin-image');
+  const $div = window.document.createElement('div');
   const $img = window.document.createElement('img');
+  $div.classList.add('image');
   $img.setAttribute('src', imageUrl);
   $img.setAttribute('alt', `image ${name}`);
+  $div.appendChild($img);
   emptyElement($penguinImage);
-  $penguinImage.appendChild($img);
+  $penguinImage.appendChild($div);
 };
 
 const penguinInfo = ({ size, favoriteFood }) => {
   const $penguinInfo = $qs('#penguinView .penguin-info');
-  const fragment = window.document.createDocumentFragment();
+  const $ul = window.document.createElement('ul');
 
   [{ label: 'Size: ', data: size },
     { label: 'Favorite food: ', data: favoriteFood },
   ].forEach((item) => {
-    const $p = window.document.createElement('p');
+
+    const $li = window.document.createElement('li');
     const $span = window.document.createElement('span');
 
     $span.appendChild(window.document.createTextNode(item.label));
-    $p.appendChild($span);
+    $li.appendChild($span);
 
-    $p.appendChild(window.document.createTextNode(item.data));
-    fragment.appendChild($p);
+    $li.appendChild(window.document.createTextNode(item.data));
+    $ul.appendChild($li);
   });
 
   emptyElement($penguinInfo);
-  $penguinInfo.appendChild(fragment);
+  $penguinInfo.appendChild($ul);
 };
 
 const penguinControlls = () => {
@@ -66,6 +70,7 @@ const initPenguinView = ({ id }) => () => {
 
   const $penguinView = window.document.createElement('div');
   $penguinView.setAttribute('id', 'penguinView');
+  $penguinView.classList.add('container');
 
   const $header = window.document.createElement('header');
 
