@@ -50,6 +50,8 @@ yarn run `<name of script>`
 
 `test`: run provided unit tests.
 
+## Demo
+[app demo](https://mvc-penguin.herokuapp.com/)
 
 ## Links
 
