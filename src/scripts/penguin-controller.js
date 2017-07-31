@@ -12,11 +12,11 @@ const clickEvtListener = ({ updateIndex }) => ({ target }) => {
   if (target.nodeName !== 'BUTTON') return;
 
   const getIndex = {
-    'next-penguin': () => 1,
-    'previous-penguin': () => -1,
+    'next-penguin': 1,
+    'previous-penguin': -1,
   };
 
-  updateIndex(getIndex[target.id]());
+  updateIndex(getIndex[target.id]);
 };
 
 const initialize = (penguinModel = {}, penguinView = {}) => {

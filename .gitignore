@@ -2,5 +2,8 @@
 node_modules
 coverage
 
+# bundle
+build
+
 #yarn
 *.lock
