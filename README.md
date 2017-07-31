@@ -19,9 +19,13 @@ After reading the very good article, designing the MVC pattern in Vanilla JavaSc
 I knew this pattern before, but it's a good idea to study it again, to refresh concepts and learn new things in the process.
 
 ## Clone the repo & install
+```
+git clone https://github.com/suxxus/penguin-mvc.git
+
+cd ./penguin-mvc
 
 yarn install
-
+```
 
 ## Usage
 * cd ./penguin-mvc
