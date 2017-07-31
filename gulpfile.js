@@ -56,17 +56,22 @@ gulp.task('build:js', function() {
     .pipe(gulp.dest('./build'));
 });
 
-gulp.task('copy', function() {
+gulp.task('copy:html', function() {
   return gulp.src('./src/index.html')
     .pipe(gulp.dest('./build'));
 });
 
-gulp.task('dev:server', function(){
+gulp.task('copy:styles', function() {
+  return gulp.src('./src/styles/*.css')
+    .pipe(gulp.dest('./build'));
+});
+
+gulp.task('dev:server', function() {
   return run('yarn run freddie').exec()
 });
 
 gulp.task('watch', function() {
-  return gulp.watch('src/**/*', function() {
+  return gulp.watch('src/**/*', ['copy:styles'], function() {
     run('yarn run lint').exec();
     run('yarn run test').exec();
   });
@@ -98,8 +103,8 @@ gulp.task('browser-sync', function() {
 
 gulp.task('dev', ['dev:server', 'watch']);
 
-gulp.task('default', ['dev:server', 'watch', 'copy', 'watchify', 'browser-sync']);
+gulp.task('default', ['dev:server', 'copy:html', 'copy:styles', 'watch', 'watchify', 'browser-sync']);
 
 gulp.task('build', function() {
-  runSequence('clean:build', 'build:js', 'copy');
+  runSequence('clean:build', 'build:js', 'copy:html', 'copy:styles');
 });
