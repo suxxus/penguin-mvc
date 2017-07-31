@@ -2,16 +2,16 @@ const controller = require('./penguin-controller');
 const view = require('./penguin-view');
 const model = require('./penguin-model');
 
-const modeWithUrl = () =>
+const modelWithUrl = () =>
   Object.assign({},
-    model, { fetchData: model.fetchData('http://localhost:4000/api') });
+    model, { fetchData: model.fetchData('/api') });
 
 const viewWithRoot = () =>
   Object.assign({},
     view, { initPenguinView: view.initPenguinView({ id: 'root' }) });
 
 const onDOMContentLoaded = () => {
-  controller.initialize(modeWithUrl(), viewWithRoot());
+  controller.initialize(modelWithUrl(), viewWithRoot());
 };
 
 window.document.addEventListener('DOMContentLoaded', onDOMContentLoaded);
