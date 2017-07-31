@@ -1,6 +1,6 @@
-extends: eslint:recommended
-parserOptions:
-    sourceType: module
+extends: airbnb-base
+globals:
+  window: true
 env:
     node: true
     es6: true
@@ -9,6 +9,10 @@ rules:
       - warn
     no-unused-vars:
       - warn
+    import/no-unresolved:
+      - off
+    import/no-extraneous-dependencies:
+      - off
     quotes:
       - error
       - single

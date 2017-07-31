@@ -1,23 +1,58 @@
 {
-  "name": "advanced-redux-course",
+  "name": "mvc-vanilla-javascript",
   "version": "0.0.0",
-  "description": "studie redux",
+  "description": "studie mvc pattern",
   "main": "index.js",
   "author": "suxxus",
   "license": "MIT",
   "dependencies": {
+    "es6-promise": "^4.1.1",
+    "handlebars": "^4.0.10",
+    "isomorphic-fetch": "^2.2.1",
+    "npm": "^5.3.0",
+    "pubsub-js": "^1.5.7",
     "tape": "^4.7.0"
   },
   "scripts": {
+    "build": "gulp build",
+    "dev":"gulp dev",
+    "freddie": "freddie",
     "lint": "eslint --fix --color ./src/**/* || true",
-    "test": "NODE_PATH=src tape './src/test/index.js' | tap-colorize",
-    "start": "gulp"
+    "start": "gulp",
+    "test": "NODE_PATH=src tape './src/test/index.js' | tap-colorize"
   },
   "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
+    "babelify": "^7.3.0",
+    "benv": "^3.3.0",
+    "blue-tape": "^1.0.0",
+    "browser-sync": "^2.18.13",
+    "browserify": "^14.4.0",
+    "del": "^3.0.0",
     "eslint": "^4.3.0",
-    "eslint-config-eslint": "^4.0.0",
+    "eslint-config-airbnb-base": "^11.3.1",
+    "eslint-plugin-import": "^2.7.0",
+    "freddie": "^0.5.1",
     "gulp": "^3.9.1",
     "gulp-run": "^1.7.1",
-    "tap-colorize": "^1.2.0"
-  }
+    "gulp-sourcemaps": "^2.6.0",
+    "gulp-uglify": "^3.0.0",
+    "gulp-util": "^3.0.8",
+    "proxy-middleware": "^0.15.0",
+    "run-sequence": "^2.1.0",
+    "sinon": "^2.4.1",
+    "tap-colorize": "^1.2.0",
+    "url": "^0.11.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.9.0"
+  },
+  "engines": {
+        "node": ">=5.10.0",
+        "npm": ">=3.8.3"
+    },
+    "keywords": [
+        "mvc, javascript"
+    ]
 }

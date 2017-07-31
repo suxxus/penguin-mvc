@@ -1,0 +1,38 @@
+{
+  "headers":
+  {
+    "Access-Control-Allow-Origin": "*"
+  },
+  "body": [
+  {
+    "name": "Emperor",
+    "imageUrl": "http://www.penguinworld.com/types/emperor_files/emperorl-2.jpg",
+    "size": "36.7kg (m), 28.4kg (f)",
+    "favoriteFood": "fish and squid"
+  },
+  {
+    "name": "Macaroni",
+    "imageUrl": "http://www.penguinworld.com/types/macaroni_files/macaroni-002850029.jpg",
+    "size": "5.2kg (m), 5.3kg (f)",
+    "favoriteFood": "krill"
+  },
+  {
+    "name": "Chinstrap",
+    "imageUrl": "http://www.penguinworld.com/types/chinstrap_files/chinstrapl-2.jpg",
+    "size": "5.0kg (m), 4.8kg (f)",
+    "favoriteFood": "krill"
+  },
+  {
+    "name": "Erect-crested",
+    "imageUrl": "http://www.penguinworld.com/types/erect_files/erectl-2.jpg",
+    "size": "5.2kg (m), 5.1kg (f)",
+    "favoriteFood": "krill and squid"
+  },
+  {
+    "name": "African",
+    "imageUrl": "http://www.penguinworld.com/types/african_files/africanl-2.jpg",
+    "size": "3.3kg (m), 3.0kg (f)",
+    "favoriteFood": "small fish"
+  }]
+
+}
