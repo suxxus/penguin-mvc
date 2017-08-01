@@ -6,7 +6,6 @@
 
 * ECMAScript 2015 (ES6)
 * Unit testing without browser(Tape)
-* Component factories
 * Vanilla javascript
 * Gulp
 * Browserify
