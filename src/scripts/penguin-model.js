@@ -30,6 +30,17 @@ const subscribe = (subscribers) => {
   });
 };
 
+const preloadImgs = (data = [], index = 0) => {
+  if (index === data.length) {
+    setData(data);
+    return;
+  }
+
+  fetch(data[index].imageUrl, { method: 'GET', mode: 'no-cors' })
+    .then(() => { preloadImgs(data, index + 1); })
+    .catch(error => console.error(error.message)); // eslint-disable-line no-console
+};
+
 const fetchData = endpoint => () =>
   fetch(`${endpoint}/data`)
     .then((resp) => {
@@ -38,7 +49,7 @@ const fetchData = endpoint => () =>
       }
       return Promise.reject(new Error(`error:${resp.status}`));
     })
-    .then(setData)
+    .then(preloadImgs)
     .then(() => 'done')
     .catch((err) => {
       console.error(err.message); // eslint-disable-line no-console
