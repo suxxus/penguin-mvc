@@ -71,7 +71,7 @@ gulp.task('dev:server', function() {
 });
 
 gulp.task('watch', function() {
-  return gulp.watch('src/**/*', ['copy:styles'], function() {
+  return gulp.watch('src/**/*', function() {
     run('yarn run lint').exec();
     run('yarn run test').exec();
   });
