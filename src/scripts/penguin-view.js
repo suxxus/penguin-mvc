@@ -35,7 +35,6 @@ const penguinInfo = ({ size, favoriteFood }) => {
   [{ label: 'Size: ', data: size },
     { label: 'Favorite food: ', data: favoriteFood },
   ].forEach((item) => {
-
     const $li = window.document.createElement('li');
     const $span = window.document.createElement('span');
 
