@@ -17,7 +17,7 @@ const watchify = require('watchify');
 const customOpts = {
   entries: ['src/scripts/index.js'],
   debug: true,
-  transform: [babelify]
+  transform: [babelify],
 };
 
 const opts = Object.assign({}, watchify.args, customOpts);
@@ -38,47 +38,33 @@ b.on('log', gutil.log);
 
 // tasks
 // ----------------------
-gulp.task('watchify', function() {
-  return bundle();
-})
+gulp.task('watchify', () => bundle());
 
-gulp.task('clean:build', function() {
-  return del('./build/*');
-});
+gulp.task('clean:build', () => del('./build/*'));
 
-gulp.task('build:js', function() {
-  return browserify(Object.assign({}, customOpts, { debug: false }))
-    .bundle()
-    .pipe(source('bundle.js'))
-    .pipe(buffer())
-    .pipe(uglify())
-    .pipe(sourcemaps.init({ loadMaps: true }))
-    .pipe(gulp.dest('./build'));
-});
+gulp.task('build:js', () => browserify(Object.assign({}, customOpts, { debug: false }))
+  .bundle()
+  .pipe(source('bundle.js'))
+  .pipe(buffer())
+  .pipe(uglify())
+  .pipe(sourcemaps.init({ loadMaps: true }))
+  .pipe(gulp.dest('./build')));
 
-gulp.task('copy:html', function() {
-  return gulp.src('./src/index.html')
-    .pipe(gulp.dest('./build'));
-});
+gulp.task('copy:html', () => gulp.src('./src/index.html')
+  .pipe(gulp.dest('./build')));
 
-gulp.task('copy:styles', function() {
-  return gulp.src('./src/styles/*.css')
-    .pipe(gulp.dest('./build'));
-});
+gulp.task('copy:styles', () => gulp.src('./src/styles/*.css')
+  .pipe(gulp.dest('./build')));
 
-gulp.task('dev:server', function() {
-  return run('yarn run freddie').exec()
-});
+gulp.task('dev:server', () => run('yarn run freddie').exec());
 
-gulp.task('watch', function() {
-  return gulp.watch('src/scripts/*', function() {
-    run('yarn run lint').exec();
-    run('yarn run test').exec();
-  });
-});
+gulp.task('watch', () => gulp.watch('./src/**/*.js', () => {
+  run('yarn run lint').exec();
+  run('yarn run test').exec();
+}));
 
-gulp.task('browser-sync', function() {
-  const proxy_options = function(value) {
+gulp.task('browser-sync', () => {
+  const proxyOpts = function proxyoptions(value) {
     const proxyOptions = url.parse(value);
     proxyOptions.route = '/api';
     return proxyOptions;
@@ -91,13 +77,13 @@ gulp.task('browser-sync', function() {
     server: {
       name: 'dev',
       baseDir: './build',
-      middleware: [proxy(proxy_options('http://localhost:4000/api'))]
+      middleware: [proxy(proxyOpts('http://localhost:4000/api'))],
     },
     port: 5000,
     ui: {
-      port: 3012
+      port: 3012,
     },
-    reloadDelay: 3000
+    reloadDelay: 3000,
   });
 });
 
@@ -105,6 +91,6 @@ gulp.task('dev', ['dev:server', 'watch']);
 
 gulp.task('default', ['dev:server', 'copy:html', 'copy:styles', 'watch', 'watchify', 'browser-sync']);
 
-gulp.task('build', function() {
+gulp.task('build', () => {
   runSequence('clean:build', 'build:js', 'copy:html', 'copy:styles');
 });
