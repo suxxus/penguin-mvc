@@ -16,7 +16,7 @@
     "build": "gulp build",
     "dev": "gulp dev",
     "freddie": "freddie",
-    "lint": "eslint --fix --color ./src/**/*.js || true",
+    "lint": "eslint --fix --color . || true",
     "start": "gulp",
     "test": "NODE_PATH=src tape './src/test/index.js' | tap-colorize"
   },
