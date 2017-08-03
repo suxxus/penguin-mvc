@@ -7,12 +7,12 @@ h6,
 ul,
 li,
 p {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 ul {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 .container {
@@ -23,7 +23,18 @@ ul {
   border: 1px solid grey;
 }
 
-.container header{
+.loader {
+  height: 35px;
+  width: 35px;
+  margin: 0 auto;
+}
+
+.loader path {
+  fill: blueviolet;
+}
+
+.container header {
+  height: 46px;
   color: blueviolet;
 }
 
@@ -34,7 +45,8 @@ ul {
   height: 450px;
 }
 
-.penguin-info{
+.penguin-info {
+  height: 82px;
   padding: 15px 0;
 }
 
@@ -42,10 +54,11 @@ ul {
   font-weight: 800;
 }
 
-.penguin-controlls{
+.penguin-controlls {
   display: flex;
   justify-content: center;
 }
+
 .penguin-controlls :first-child {
   margin-right: 15px;
 }
