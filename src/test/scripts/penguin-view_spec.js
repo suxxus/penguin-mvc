@@ -2,6 +2,7 @@ const sinon = require('sinon');
 const test = require('tape');
 const {
   addEventClickListener,
+  showSpinner,
   initPenguinView,
   penguinTitle,
   penguinImage,
@@ -41,6 +42,14 @@ test('addEventClickListener', (assert) => {
   const expect = true;
 
   assert.equal(actual, expect, 'evtListener was called once');
+  assert.end();
+});
+
+test('showSpinner', (assert) => {
+  showSpinner(true);
+  const actual = $penguinView.innerHTML.search('.loader') !== -1;
+  const expect = true;
+  assert.equal(actual, expect, 'showSpinner is visible');
   assert.end();
 });
 
@@ -133,4 +142,3 @@ test('initPenguinView', (assert) => {
 
   assert.end();
 });
-

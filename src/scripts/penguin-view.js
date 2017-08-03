@@ -8,6 +8,27 @@ const emptyElement = ($elm) => {
   $elm.innerHTML = ''; // eslint-disable-line  no-param-reassign
 };
 
+const svgParser = str =>
+  new window.DOMParser().parseFromString(str, 'image/svg+xml');
+
+const showSpinner = () => {
+  const $penguinImage = $qs('#penguinView .penguin-image');
+
+  const $div = window.document.createElement('div');
+  $div.classList.add('loader');
+
+  const svgSpinner = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+      <path opacity=".5" d="M20.2 5.17c-8.25 0-14.94 6.7-14.94 14.95s6.7 14.94 14.94 14.94 14.95-6.7 14.95-14.95c0-8.2-6.7-14.9-14.95-14.9zm0 26.58c-6.42 0-11.63-5.2-11.63-11.64 0-6.4 5.2-11.6 11.63-11.6 6.43 0 11.63 5.2 11.63 11.65S26.63 31.8 20.2 31.8z"/>
+      <path d="M26 10.05l1.67-2.87c-2.2-1.27-4.75-2-7.47-2v3.3c2.12 0 4.1.58 5.8 1.57z"><animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 20 20" to="360 20 20" dur="0.5s" repeatCount="indefinite"/></path>
+     </svg>
+  `;
+
+  $div.appendChild($div.ownerDocument.importNode(svgParser(svgSpinner).documentElement, true));
+  emptyElement($penguinImage);
+  $penguinImage.appendChild($div);
+};
+
 const penguinTitle = ({ name }) => {
   const $header = $qs('#penguinView header');
   const $h3 = window.document.createElement('h2');
@@ -95,9 +116,10 @@ const updatePenguin = (props) => {
 
 module.exports = {
   initPenguinView,
+  showSpinner,
   penguinTitle,
-  penguinImage,
   penguinInfo,
+  penguinImage,
   penguinControlls,
   updatePenguin,
   addEventClickListener,

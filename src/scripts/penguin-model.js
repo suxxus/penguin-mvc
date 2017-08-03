@@ -2,6 +2,7 @@ const PubSub = require('pubsub-js');
 const fetch = require('isomorphic-fetch');
 
 const DATA_UPDATE = 'data.updated';
+const API_START = 'api.start';
 
 let model = {
   data: [],
@@ -10,18 +11,30 @@ let model = {
 
 const getModel = () => Object.assign({}, model);
 
-const setData = (data) => {
-  model = Object.assign({}, model, { data });
+const apiStart = () => {
+  PubSub.publish(API_START);
+};
+
+const dataUpdate = () => {
   PubSub.publish(DATA_UPDATE, getModel());
 };
 
-const updateIndex = (idx) => {
-  const { index, data } = getModel();
-  if (index + idx < 0) return;
-  if (index + idx > data.length - 1) return;
+const setData = (data) => {
+  model = Object.assign({}, model, { data });
+  dataUpdate();
+};
 
-  model = Object.assign({}, model, { index: index + idx });
-  PubSub.publish(DATA_UPDATE, getModel());
+const shouldBeUpdated = (idx, { index, data }) =>
+  (index + idx >= 0) && (index + idx <= data.length - 1);
+
+const add = value =>
+  getModel().index + value;
+
+const updateIndex = (idx) => {
+  if (shouldBeUpdated(idx, getModel())) {
+    model = Object.assign({}, model, { index: add(idx) });
+    dataUpdate();
+  }
 };
 
 const subscribe = (subscribers) => {
@@ -41,8 +54,9 @@ const preloadImgs = (data = [], index = 0) => {
     .catch(error => console.error(error.message)); // eslint-disable-line no-console
 };
 
-const fetchData = endpoint => () =>
-  fetch(`${endpoint}/data`)
+const fetchData = endpoint => () => {
+  apiStart();
+  return fetch(`${endpoint}/data`)
     .then((resp) => {
       if (resp.status === 200) {
         return resp.json();
@@ -54,11 +68,13 @@ const fetchData = endpoint => () =>
     .catch((err) => {
       console.error(err.message); // eslint-disable-line no-console
     });
+};
 
 module.exports = {
+  shouldBeUpdated,
   fetchData,
-  getModel,
   updateIndex,
   subscribe,
   DATA_UPDATE,
+  API_START,
 };
