@@ -3,15 +3,15 @@ const dataUpdateListener = ({ updatePenguin }) => (topic, { data, index }) => {
 };
 
 const subscribeModelListeners = (penguinView = {}, penguinModel = {}) => {
-  const { DATA_UPDATE, API_START, subscribe } = penguinModel;
+  const { MODEL_UPDATED, API_START, subscribe } = penguinModel;
   const { showSpinner } = penguinView;
   subscribe([
     { topic: API_START, callback: () => showSpinner() },
-    { topic: DATA_UPDATE, callback: dataUpdateListener(penguinView) },
+    { topic: MODEL_UPDATED, callback: dataUpdateListener(penguinView) },
   ]);
 };
 
-const clickEvtListener = ({ updateIndex }) => ({ target }) => {
+const clickEvtListener = ({ changeIndex }) => ({ target }) => {
   if (target.nodeName !== 'BUTTON') return;
 
   const values = {
@@ -19,7 +19,7 @@ const clickEvtListener = ({ updateIndex }) => ({ target }) => {
     'previous-penguin': -1,
   };
 
-  updateIndex(values[target.id]);
+  changeIndex(values[target.id]);
 };
 
 const initialize = (penguinModel = {}, penguinView = {}) => {

@@ -1,40 +1,55 @@
 const PubSub = require('pubsub-js');
 const fetch = require('isomorphic-fetch');
 
-const DATA_UPDATE = 'data.updated';
+const MODEL_UPDATED = 'model.updated';
+const DATA_UPDATE = 'data.update';
+const INDEX_UPDATE = 'index.update';
 const API_START = 'api.start';
 
-let model = {
-  data: [],
-  index: 0,
-};
+let model = {};
 
 const getModel = () => Object.assign({}, model);
+
+const setModel = (value = {}) => {
+  model = value;
+  PubSub.publish(MODEL_UPDATED, getModel());
+};
 
 const apiStart = () => {
   PubSub.publish(API_START);
 };
 
-const dataUpdate = () => {
-  PubSub.publish(DATA_UPDATE, getModel());
-};
-
-const setData = (data) => {
-  model = Object.assign({}, model, { data });
-  dataUpdate();
-};
-
-const shouldBeUpdated = (idx, { index, data }) =>
-  (index + idx >= 0) && (index + idx <= data.length - 1);
-
-const add = value =>
-  getModel().index + value;
-
-const updateIndex = (idx) => {
-  if (shouldBeUpdated(idx, getModel())) {
-    model = Object.assign({}, model, { index: add(idx) });
-    dataUpdate();
+const dataReducer = (state = [], action = {}) => {
+  if (action.type === DATA_UPDATE) {
+    return action.payload;
   }
+  return state;
+};
+
+const indexReducer = (state = 0, action = {}) => {
+  if (action.type !== INDEX_UPDATE) {
+    return state;
+  }
+
+  const { idx, dataLen } = action.payload;
+
+  if ((state + idx >= 0) && (state + idx <= dataLen - 1)) {
+    return state + idx;
+  }
+  return state;
+};
+
+const updateModel = (action = {}) => ({
+  data: dataReducer(getModel().data, action),
+  index: indexReducer(getModel().index, action),
+});
+
+const changeIndex = (idx = 0) => {
+  setModel(
+    updateModel({
+      type: INDEX_UPDATE,
+      payload: { idx, dataLen: getModel().data.length },
+    }));
 };
 
 const subscribe = (subscribers) => {
@@ -45,7 +60,12 @@ const subscribe = (subscribers) => {
 
 const preloadImgs = (data = [], index = 0) => {
   if (index === data.length) {
-    setData(data);
+    setModel(
+      updateModel({
+        type: DATA_UPDATE,
+        payload: data,
+      }));
+
     return;
   }
 
@@ -71,10 +91,14 @@ const fetchData = endpoint => () => {
 };
 
 module.exports = {
-  shouldBeUpdated,
+  updateModel,
+  dataReducer,
+  indexReducer,
   fetchData,
-  updateIndex,
+  changeIndex,
   subscribe,
+  MODEL_UPDATED,
   DATA_UPDATE,
+  INDEX_UPDATE,
   API_START,
 };
