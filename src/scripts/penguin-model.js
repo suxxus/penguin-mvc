@@ -8,11 +8,16 @@ const API_START = 'api.start';
 
 let model = {};
 
+const objsNotEquals = (objOne = {}, objTwo = {}) =>
+  JSON.stringify(objOne) !== JSON.stringify(objTwo);
+
 const getModel = () => Object.assign({}, model);
 
 const setModel = (value = {}) => {
-  model = value;
-  PubSub.publish(MODEL_UPDATED, getModel());
+  if (objsNotEquals(getModel(), value)) {
+    model = value;
+    PubSub.publish(MODEL_UPDATED, value);
+  }
 };
 
 const apiStart = () => {
@@ -20,10 +25,10 @@ const apiStart = () => {
 };
 
 const dataReducer = (state = [], action = {}) => {
-  if (action.type === DATA_UPDATE) {
-    return action.payload;
+  if (action.type !== DATA_UPDATE) {
+    return state;
   }
-  return state;
+  return action.payload;
 };
 
 const indexReducer = (state = 0, action = {}) => {
@@ -97,6 +102,7 @@ module.exports = {
   fetchData,
   changeIndex,
   subscribe,
+  objsNotEquals,
   MODEL_UPDATED,
   DATA_UPDATE,
   INDEX_UPDATE,

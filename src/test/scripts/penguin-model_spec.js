@@ -4,6 +4,7 @@ const {
   dataReducer,
   indexReducer,
   updateModel,
+  objsNotEquals,
   DATA_UPDATE,
   INDEX_UPDATE,
 } = require('scripts/penguin-model');
@@ -46,6 +47,14 @@ test('indexReducer', (assert) => {
   actual = indexReducer(1, { type: '', payload: undefined });
   expect = 1;
   assert.deepEqual(actual, expect);
+
+  assert.end();
+});
+
+test('objsNotEquals', (assert) => {
+  const actual = objsNotEquals({ a: 0 }, { b: 1 });
+  const expect = true;
+  assert.ok(actual, expect);
 
   assert.end();
 });
