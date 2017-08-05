@@ -16,7 +16,7 @@ const getModel = () => Object.assign({}, model);
 const setModel = (value = {}) => {
   if (objsNotEquals(getModel(), value)) {
     model = value;
-    PubSub.publish(MODEL_UPDATED, value);
+    PubSub.publish(MODEL_UPDATED, getModel());
   }
 };
 
