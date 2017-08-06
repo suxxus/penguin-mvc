@@ -9,6 +9,19 @@ const {
   INDEX_UPDATE,
 } = require('scripts/penguin-model');
 
+
+const actionsIndexReducer = [
+  { type: INDEX_UPDATE, payload: { idx: 1, dataLen: 4 } },
+  { type: INDEX_UPDATE, payload: { idx: 1, dataLen: 4 } },
+  { type: INDEX_UPDATE, payload: { idx: 1, dataLen: 4 } },
+  { type: INDEX_UPDATE, payload: { idx: 1, dataLen: 4 } },
+  { type: INDEX_UPDATE, payload: { idx: 1, dataLen: 4 } },
+];
+
+const actionsDataReducer = [
+  { type: DATA_UPDATE, payload: [1, 2] },
+];
+
 const describe = test;
 const baseUrl = 'http://localhost:4000/api';
 
@@ -26,13 +39,14 @@ test('fetchData', assert => fetchData(`${baseUrl}`)()
 test('dataReducer', (assert) => {
   let actual;
   let expect;
-  actual = dataReducer([], { type: DATA_UPDATE, payload: [1, 3, 4] });
-  expect = [1, 3, 4];
-  assert.deepEqual(actual, expect);
 
-  actual = dataReducer([], { type: '', payload: undefined });
+  actual = actionsDataReducer.reduce(dataReducer, []);
+  expect = [1, 2];
+  assert.deepEqual(actual, expect, 'data is updated');
+
+  actual = actionsIndexReducer.reduce(dataReducer, []);
   expect = [];
-  assert.deepEqual(actual, expect);
+  assert.deepEqual(actual, expect, 'returns default data');
 
   assert.end();
 });
@@ -40,13 +54,15 @@ test('dataReducer', (assert) => {
 test('indexReducer', (assert) => {
   let actual;
   let expect;
-  actual = indexReducer(5, { type: INDEX_UPDATE, payload: { idx: 1, dataLen: 7 } });
-  expect = 6;
-  assert.deepEqual(actual, expect);
 
-  actual = indexReducer(1, { type: '', payload: undefined });
-  expect = 1;
-  assert.deepEqual(actual, expect);
+  actual = actionsIndexReducer.reduce(indexReducer, 0);
+  expect = 3;
+  assert.equal(actual, expect, 'index is updated');
+
+  actual = actionsDataReducer.reduce(indexReducer, 0);
+  expect = 0;
+  assert.equal(actual, expect, 'returns default index');
+
 
   assert.end();
 });
