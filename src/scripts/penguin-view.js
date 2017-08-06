@@ -1,7 +1,7 @@
 const $qs = selector => window.document.querySelector.bind(window.document)(selector);
 
-const addEventClickListener = (clickEvtListner) => {
-  $qs('#penguinView').addEventListener('click', clickEvtListner);
+const addEventClickListener = (clickEvtListener) => {
+  $qs('#penguinView').addEventListener('click', clickEvtListener);
 };
 
 const emptyElement = ($elm) => {
