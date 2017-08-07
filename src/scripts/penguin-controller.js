@@ -24,7 +24,7 @@ const clickEvtListener = action => ({ target }) => {
 
 // helper to check properties
 const hasOwnProperties = (obj = {}, props = []) =>
-  props.every(item => obj[item]);
+  props.every(prop => obj[prop]);
 
 const safeInit = (penguinView = {}, penguinModel = {}) => {
   penguinView.initPenguinView();
@@ -41,7 +41,6 @@ const initialize = (penguinModel = {}, penguinView = {}) => {
 
   const penguinViewOk = hasOwnProperties(
     penguinView, ['initPenguinView', 'penguinControlls', 'addEventClickListener', 'updatePenguin', 'showSpinner']);
-
 
   const action = (penguinModelOk && penguinViewOk) ? safeInit :
     () => { throw new Error('some properties are undefined, can not initialize app'); };
