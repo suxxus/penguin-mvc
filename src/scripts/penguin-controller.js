@@ -11,7 +11,7 @@ const subscribeModelListeners = (penguinView = {}, penguinModel = {}) => {
   ]);
 };
 
-const clickEvtListener = ({ changeIndex }) => ({ target }) => {
+const clickEvtListener = action => ({ target }) => {
   if (target.nodeName !== 'BUTTON') return;
 
   const values = {
@@ -19,17 +19,37 @@ const clickEvtListener = ({ changeIndex }) => ({ target }) => {
     'previous-penguin': -1,
   };
 
-  changeIndex(values[target.id]);
+  action(values[target.id]);
 };
 
-const initialize = (penguinModel = {}, penguinView = {}) => {
+// helper to check properties
+const hasOwnProperties = (obj = {}, props = []) =>
+  props.every(item => obj[item]);
+
+const safeInit = (penguinView = {}, penguinModel = {}) => {
   penguinView.initPenguinView();
   penguinView.penguinControlls();
-  penguinView.addEventClickListener(clickEvtListener(penguinModel));
+  penguinView.addEventClickListener(clickEvtListener(penguinModel.changeIndex));
+
   subscribeModelListeners(penguinView, penguinModel);
   penguinModel.fetchData();
 };
 
+const initialize = (penguinModel = {}, penguinView = {}) => {
+  const penguinModelOk = hasOwnProperties(
+    penguinModel, ['fetchData', 'subscribe', 'MODEL_UPDATED', 'API_START', 'changeIndex']);
+
+  const penguinViewOk = hasOwnProperties(
+    penguinView, ['initPenguinView', 'penguinControlls', 'addEventClickListener', 'updatePenguin', 'showSpinner']);
+
+
+  const action = (penguinModelOk && penguinViewOk) ? safeInit :
+    () => { throw new Error('some properties are undefined, can not initialize app'); };
+
+  action(penguinView, penguinModel);
+};
+
 module.exports = {
+  hasOwnProperties,
   initialize,
 };
