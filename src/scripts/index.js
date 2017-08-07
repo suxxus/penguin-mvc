@@ -4,7 +4,7 @@ const model = require('./penguin-model');
 
 const modelWithUrl = () =>
   Object.assign({},
-    model, { fetchData: model.fetchData('/api') });
+    model(), { fetchData: model().fetchData('/api') });
 
 const viewWithRoot = () =>
   Object.assign({},

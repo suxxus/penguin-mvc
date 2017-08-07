@@ -7,9 +7,9 @@ const {
   objsNotEquals,
   DATA_UPDATE,
   INDEX_UPDATE,
-} = require('scripts/penguin-model');
+} = require('scripts/penguin-model')();
 
-
+console.log(INDEX_UPDATE);
 const actionsIndexReducer = [
   { type: INDEX_UPDATE, payload: { idx: 1, dataLen: 4 } },
   { type: INDEX_UPDATE, payload: { idx: 1, dataLen: 4 } },
@@ -28,6 +28,7 @@ const baseUrl = 'http://localhost:4000/api';
 describe('model', (assert) => {
   assert.end();
 });
+
 
 test('fetchData', assert => fetchData(`${baseUrl}`)()
   .then((done) => {
