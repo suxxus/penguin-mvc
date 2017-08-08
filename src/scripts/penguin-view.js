@@ -31,10 +31,10 @@ const showSpinner = () => {
 
 const penguinTitle = ({ name }) => {
   const $header = $qs('#penguinView header');
-  const $h3 = window.document.createElement('h2');
-  $h3.appendChild(window.document.createTextNode(name));
+  const $h = window.document.createElement('h2');
+  $h.appendChild(window.document.createTextNode(name));
   emptyElement($header);
-  $header.appendChild($h3);
+  $header.appendChild($h);
 };
 
 const penguinImage = ({ imageUrl, name }) => {
