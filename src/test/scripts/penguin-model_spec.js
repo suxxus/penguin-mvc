@@ -9,7 +9,6 @@ const {
   INDEX_UPDATE,
 } = require('scripts/penguin-model')();
 
-console.log(INDEX_UPDATE);
 const actionsIndexReducer = [
   { type: INDEX_UPDATE, payload: { idx: 1, dataLen: 4 } },
   { type: INDEX_UPDATE, payload: { idx: 1, dataLen: 4 } },

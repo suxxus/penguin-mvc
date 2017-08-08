@@ -1,7 +1,7 @@
 const PubSub = require('pubsub-js');
 const fetch = require('isomorphic-fetch');
 
-module.exports = () => {
+module.exports = (() => {
   const MODEL_UPDATED = 'model.updated';
   const DATA_UPDATE = 'data.update';
   const INDEX_UPDATE = 'index.update';
@@ -109,4 +109,4 @@ module.exports = () => {
     INDEX_UPDATE,
     API_START,
   });
-};
+});
