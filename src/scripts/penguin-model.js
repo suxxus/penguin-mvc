@@ -7,17 +7,17 @@ module.exports = (() => {
   const INDEX_UPDATE = 'index.update';
   const API_START = 'api.start';
 
-  let model = {};
+  let model = { data: [], index: 0 };
 
   const objsNotEquals = (objOne = {}, objTwo = {}) =>
     JSON.stringify(objOne) !== JSON.stringify(objTwo);
 
-  const getModel = () => Object.assign({}, model);
+  const getModel = () => model;
 
   const setModel = (value = {}) => {
     if (objsNotEquals(getModel(), value)) {
-      model = value;
-      PubSub.publish(MODEL_UPDATED, getModel());
+      model = Object.freeze(value);
+      PubSub.publish(MODEL_UPDATED, Object.assign({}, getModel()));
     }
   };
 
@@ -80,7 +80,7 @@ module.exports = (() => {
       .catch(error => console.error(error.message)); // eslint-disable-line no-console
   };
 
-  const fetchData = endpoint => () => {
+  const fetchData = (endpoint) => {
     apiStart();
     return fetch(`${endpoint}/data`)
       .then((resp) => {
