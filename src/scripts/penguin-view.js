@@ -85,7 +85,7 @@ const penguinControlls = () => {
   $penguinControlls.appendChild(fragment);
 };
 
-const initPenguinView = ({ id }) => () => {
+const initPenguinView = (id) => {
   const $root = $qs(`#${id}`);
 
   const $penguinView = window.document.createElement('div');
