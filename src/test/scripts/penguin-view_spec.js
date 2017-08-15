@@ -118,7 +118,9 @@ test('initPenguinView', (assert) => {
   let actual;
   let expect;
 
-  initPenguinView({ id: 'root' })();
+  $root.innerHTML = '';
+
+  initPenguinView('root');
 
   actual = $root.innerHTML.search('penguinView') !== -1;
   expect = true;

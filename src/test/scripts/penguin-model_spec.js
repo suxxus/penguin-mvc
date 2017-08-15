@@ -29,7 +29,7 @@ describe('model', (assert) => {
 });
 
 
-test('fetchData', assert => fetchData(`${baseUrl}`)()
+test('fetchData', assert => fetchData(`${baseUrl}`)
   .then((done) => {
     const actual = done;
     const expect = 'done';
